@@ -48,6 +48,33 @@ public class ClickToPutThings implements Listener {
                     }
                 }
             }
+            if(event.getClickedBlock().getType() == Material.ENDER_CHEST){
+                ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
+                if(itemInMainHand == null){
+                    player.sendMessage(ChatColor.RED + "你的手上没有方块");
+                }
+                else{
+                    Inventory enderChest = player.getEnderChest();
+                    ItemStack itemtoADD = itemInMainHand.clone();
+                    java.util.HashMap<Integer, ItemStack>leftOver = enderChest.addItem(itemtoADD);
+                    if(leftOver.isEmpty()){
+                        player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+                        player.sendMessage(ChatColor.GOLD + "物品已放入");
+                    }
+                    else{
+                        ItemStack itemStack = leftOver.get(0);
+                        int addedAmount = itemInMainHand.getAmount() - itemStack.getAmount();
+                        if(addedAmount > 0){
+                            player.getInventory().setItemInMainHand(itemStack);
+                            player.sendMessage(ChatColor.RED + "已放入" + addedAmount + "个物品至箱子。您的箱子已满。");
+                        }
+                        else{
+                            player.sendMessage(ChatColor.RED + "箱子已满。");
+                        }
+                    }
+                }
+
+            }
         }
     }
 }
