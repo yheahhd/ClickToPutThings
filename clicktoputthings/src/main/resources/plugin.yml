@@ -1,6 +1,0 @@
-name: clicktoputthings
-version: '1.0-SNAPSHOT'
-main: com.yourdomain.Main.Main
-api-version: '1.20'
-authors: [ dggw1 ]
-website: none
